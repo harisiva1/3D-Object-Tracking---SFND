@@ -41,6 +41,28 @@ Please check [solution](https://github.com/harisiva1/3D-Object-Tracking---SFND/b
 
 # TASK 3 - Associate Keypoint Correspondences with Bounding Boxes
 
+Before a TTC estimate can be computed in the next exercise, you need to find all keypoint matches that belong to each 3D object. You can do this by simply checking whether the corresponding keypoints are within the region of interest in the camera image. All matches which satisfy this condition should be added to a vector. The problem you will find is that there will be outliers among your matches. To eliminate those, I recommend that you compute a robust mean of all the euclidean distances between keypoint matches and then remove those that are too far away from the mean
+
+Please check [solution](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8e2f7b8bdb537a3d893b79782a722b3db5eddd64/src/camFusion_Student.cpp) here from line 139 to 163
+
+# TASK 4 - Compute Camera-based TTC
+
+With a 2D camera however, the process of TTC computation is more complicated: First, the camera does not perform 3D measurements but only captures a 2D image of the scene. Second, we need to reliably and accurately identify vehicles in order to track their motion over time. To compute the TTC, we need to rely on the scale change of a vehicle (i.e. its increase in size on the image sensor in successive frames).
+![TTC CAMERA IMG](https://user-images.githubusercontent.com/68550704/121786902-1f5a3980-cbc3-11eb-87c9-f8397c10727b.png)
+![TTC CAMERA EQ](https://user-images.githubusercontent.com/68550704/121786903-22552a00-cbc3-11eb-8022-010d92743b41.png)
+
+We detect keypoint correspondences by calculating euclidean distances.Please see picture below. If it were possible to locate uniquely identifiable keypoints that could be tracked from one frame to the next, we could use the distance between all keypoints on the vehicle relative to each other to compute a robust estimate of the height ratio in out TTC equation.
+![CORRESPONDENCES](https://user-images.githubusercontent.com/68550704/121786735-1fa60500-cbc2-11eb-8f19-ada984103e52.png)
+
+Please check [solution](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8e2f7b8bdb537a3d893b79782a722b3db5eddd64/src/camFusion_Student.cpp) here from line 167 to 267
+
+# TASK 5 and 6 - Performance Evaluation
+
+This exercise is about conducting tests with the final project code, especially with regard to the Lidar part. Look for several examples where you have the impression that the Lidar-based TTC estimate is way off. Once you have found those, describe your observations.
+
+This last exercise is about running the different detector / descriptor combinations and looking at the differences in TTC estimation. Find out which methods perform best and also include several examples where camera-based TTC estimation is way off. As with Lidar, describe your observations again and also look into potential reasons. This is the last task in the final project.
+
+Please check [Logged Results](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8c31ba671b2b6ef841608eaf0ac77da1a5ed7baf/check.csv), [Analysis](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8c31ba671b2b6ef841608eaf0ac77da1a5ed7baf/check.xls) and [obervations](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8c31ba671b2b6ef841608eaf0ac77da1a5ed7baf/results) here.
 
 
 ## Dependencies for Running Locally
