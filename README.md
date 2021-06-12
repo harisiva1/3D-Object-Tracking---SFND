@@ -10,6 +10,39 @@ In this final project, you will implement the missing parts in the schematic. To
 3. You will then proceed to do the same using the camera, which requires to first associate keypoint matches to regions of interest and then to compute the TTC based on those matches. 
 4. And lastly, you will conduct various tests with the framework. Your goal is to identify the most suitable detector/descriptor combination for TTC estimation and also to search for problems that can lead to faulty measurements by the camera or Lidar sensor. In the last course of this Nanodegree, you will learn about the Kalman filter, which is a great way to combine the two independent TTC measurements into an improved version which is much more reliable than a single sensor alone can be. But before we think about such things, let us focus on your final project in the camera course. 
 
+# TASK 1 - Match 3D Objects
+
+In this task, please implement the method "matchBoundingBoxes", which takes as input both the previous and the current data frames and provides as output the ids of the matched regions of interest (i.e. the boxID property)“. Matches must be the ones with the highest number of keypoint correspondences.
+
+**Implementation Overview**
+
+* For all the keypoint matches we get the corresponding keypoint in current frame and previous frame
+* Then we check whether it is with in the previous and current frame bounding boxes
+* If it is present in both the bounding boxes then we add/count it to those bounding box ids. 
+* Finally we match bounding boxes which has highest number of matches/counts.
+
+Please check [solution](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8e2f7b8bdb537a3d893b79782a722b3db5eddd64/src/camFusion_Student.cpp) here from line 262 to 304
+
+# TASK 2 - Compute Lidar-based TTC
+
+Compute the time-to-collision in second for all matched 3D objects using only Lidar measurements from the matched bounding boxes between current and previous frame.
+
+The sensor in this scenario will give us the distance to the closest 3D point in the path of driving. In the figure below, the closest point is indicated by a red line emanating from a Lidar sensor on top of the CAS vehicle. Based on the model of a constant-velocity we discussed in the last section, the velocity can be computed from two successive Lidar measurements.
+
+![TTC LIDAR IMG](https://user-images.githubusercontent.com/68550704/121786635-60e9e500-cbc1-11eb-86ec-64b17e91792d.png)
+![TTC LIDAR EQ](https://user-images.githubusercontent.com/68550704/121786637-647d6c00-cbc1-11eb-9c5e-ceb9c72aec8e.png)
+
+
+Once the relative velocity is known, the time to collision can easily be computed by dividing the remaining distance between both vehicles by. So given a Lidar sensor which is able to take precise distance measurements, a system for TTC estimation can be developed based based on a CVM and on the set of equations shown above
+
+Even though Lidar is a reliable sensor, erroneous measurements may still occur. E.g, a small number of points is located behind the tailgate, seemingly without connection to the vehicle. When searching for the closest points, such measurements will pose a problem as the estimated distance will be too small. There are ways to avoid such errors by post-processing the point cloud, but there will be no guarantee that such problems will never occur in practice.
+
+Please check [solution](https://github.com/harisiva1/3D-Object-Tracking---SFND/blob/8e2f7b8bdb537a3d893b79782a722b3db5eddd64/src/camFusion_Student.cpp) here from line 220 to 259
+
+# TASK 3 - Associate Keypoint Correspondences with Bounding Boxes
+
+
+
 ## Dependencies for Running Locally
 * cmake >= 2.8
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
