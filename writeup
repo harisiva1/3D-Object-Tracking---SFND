@@ -1,0 +1,39 @@
+FP:1 MATCH 3D OBJECTS:
+    this impelmenation will be in camfusionstudent.cpp file under matchboundingboxes.
+    firstly i iterate through all the matches and get current and previous frame keypoint and then itearte though previousframe bounding box 
+    and check whether this contains previous frame point and then same for the current fram bounding box and point too.
+    if its contained in both then i count these and add in the zeros matrix that i created.
+    after that i get the bounding box with the highest matches and the respective indices.
+
+Hints/reference: I have seen hints from few mentors in knowledge forum regarding how to solve this.i found those hints really helpful.
+
+FP:2 LIDAR BASED TTC
+    This impelmenation will be also in camfusionstudent.cpp file.
+    i iterate through all the lidar matches and check whether its with in ego lane and add the corresponding x values.
+    then i take the median value of x to caluculate the distance.
+
+
+FP:3 ASSOCIATE KEYPOINT CORRESPONDENCE WITH BOUNDING BOXES
+    This impelmenation will be also in camfusionstudent.cpp file.
+    I iterate through all the kptmatches and calculate the distance and with that i calculate mean.
+    then i check whether it is with in bounding box and distance is less than mean if yes then i add this kptmatch.
+
+FP:4 CAMERA BASED TTC
+    This impelmenation will be also in camfusionstudent.cpp file.
+    This is based on the exercise in previous lesson.here we check for the distance ratio of two keypoint pair whether its with in 
+    specified distance threshold.if yes we add those point and calculate the median minxprev and minxcurr values nad use it to calculate TTC.
+
+Reference : Udacity solution code from previous exercise
+
+FP;5 PERFORMANCE EVALUATION 1
+    since i used the median values concept in computing ttc lidar i didnt find any unreasonable TTC lidar value.
+    in contrast i have found unreasonable ttc camera values.please see "fp5&6" and "fp5&6.1" sheet in "check.xls" file.
+    
+
+FP:6 PERFORMANCE EVALUATION 2
+    Please see "results" sheet in "check.xls" file .i calcuated the mean,standard deviation for all TTC values for different detector/ descriptor
+    combination.
+    i conclude the below 3 as top combination
+    1.FAST AND BRIEF
+    2.SHITOMASI AND BRISK
+    3.FAST and ORB
